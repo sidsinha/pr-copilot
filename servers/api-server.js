@@ -16,7 +16,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT;
 
-//@ts-ignore This allows us to connect to CIS. Make sure you're on the network
+//@ts-ignore This allows us to connect to AI service. Make sure you're on the network
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // Middleware

@@ -15,7 +15,7 @@ import { create_pull_request, get_repository_info, generate_pr_summary } from '.
 import { get_jira_ticket_details } from '../tools/jira/index.js';
 import { execSync } from 'child_process';
 
-// Allow connection to CIS
+// Allow connection to AI service
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // Tool configurations

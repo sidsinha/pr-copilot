@@ -67,11 +67,11 @@ const getFileTypeCategory = (extension) => {
 };
 
 /**
- * Generate detailed summary and motivation context using enterprise LLM
+ * Generate detailed summary and motivation context using AI LLM
  */
 export const generateDetailedSummary = async (filesChanged, stats, head, base, jiraTickets, customBody = "") => {
   try {
-    // Use existing enterprise LLM client
+    // Use existing AI LLM client
     const llm = getLLMClient();
 
     // Prepare context for LLM with more detailed file analysis
