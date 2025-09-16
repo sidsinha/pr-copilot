@@ -1,0 +1,37 @@
+{
+    "name": "workday-mcp/pr-copilot-mcp",
+    "description": "MCP server for GitHub PR creation and analysis with AI-generated summaries using Workday CIS LLM and JIRA ticket integration - create pull requests with enhanced descriptions, generate PR summaries, analyze code changes, and JIRA ticket context with Figma links. Optimized configuration with hardcoded values for simplified deployment.",
+    "repository": {
+        "url": "https://ghe.megaleo.com/siddharth-sinha/github-pr-copilot"
+    },
+    "version_detail": {
+        "version": "1.2.0"
+    },
+    "packages": [
+        {
+            "registry_name": "npm",
+            "name": "@workday-mcp/pr-copilot-mcp",
+            "version": "1.2.0",
+            "environment_variables": [
+                {
+                    "name": "GITHUB_TOKEN",
+                    "description": "GitHub token with repository permissions for PR creation and repository access",
+                    "is_required": true,
+                    "is_secret": true
+                },
+                {
+                    "name": "GITHUB_OWNER",
+                    "description": "Default repository owner (optional, defaults to 'wday-planning' if not set)",
+                    "is_required": false,
+                    "is_secret": false
+                },
+                {
+                    "name": "JIRA_API_TOKEN",
+                    "description": "JIRA API token for Bearer authentication (optional - enables detailed ticket info in PR descriptions)",
+                    "is_required": false,
+                    "is_secret": true
+                }
+            ]
+        }
+    ]
+}
