@@ -1,7 +1,7 @@
 {
   "name": "pr-copilot",
   "version": "1.0.0",
-  "description": "AI-powered PR creation tools with GitHub integration and Workday CIS LLM support",
+  "description": "AI-powered PR creation tools with GitHub integration and AI LLM support",
   "type": "module",
   "scripts": {
     "mcp": "node servers/mcp-server.js",

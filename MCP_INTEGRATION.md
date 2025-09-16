@@ -47,10 +47,10 @@ JIRA_API_TOKEN=your_jira_api_token
 ## Usage Examples
 
 ```
-Create a PR for branch PLNOC-12345-feature targeting develop
-Get information about the officeconnect-ui repository
+Create a PR for branch TICKET-12345-feature targeting develop
+Get information about the your-repo repository
 Create a draft PR for my feature branch
-Get details for JIRA ticket PLNOC-12345
+Get details for JIRA ticket TICKET-12345
 Generate PR summary for feature-branch compared to main
 ```
 

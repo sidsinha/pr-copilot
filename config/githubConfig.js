@@ -6,50 +6,64 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export function getGitHubConfig() {
-    const config = {
-        token: process.env.GITHUB_TOKEN,
-        owner: process.env.GITHUB_OWNER || "wday-planning",
-        apiBase: "https://ghe.megaleo.com/api/v3",
-        jiraBaseUrl: "https://jira2.workday.com",
-        isConfigured: !!process.env.GITHUB_TOKEN
-    };
+    const token = process.env.GITHUB_TOKEN;
+    const owner = process.env.GITHUB_OWNER;
+    const apiBase = process.env.GITHUB_API_BASE;
+    const jiraBaseUrl = process.env.JIRA_BASE_URL;
     
-    if (!config.token) {
-        console.warn('⚠️  GITHUB_TOKEN not found in environment variables');
+    if (!token) {
+        throw new Error('GITHUB_TOKEN environment variable is required');
     }
+    
+    if (!owner) {
+        throw new Error('GITHUB_OWNER environment variable is required');
+    }
+    
+    if (!apiBase) {
+        throw new Error('GITHUB_API_BASE environment variable is required');
+    }
+    
+    if (!jiraBaseUrl) {
+        throw new Error('JIRA_BASE_URL environment variable is required');
+    }
+    
+    const config = {
+        token,
+        owner,
+        apiBase,
+        jiraBaseUrl,
+        isConfigured: true
+    };
     
     return config;
 }
 
 export function validateGitHubConfig() {
-    const config = getGitHubConfig();
-    
-    if (!config.isConfigured) {
+    try {
+        const config = getGitHubConfig();
+        return {
+            valid: true,
+            message: 'GitHub configuration is valid',
+            owner: config.owner
+        };
+    } catch (error) {
         return {
             valid: false,
-            message: 'GitHub token not configured',
+            message: 'GitHub configuration error',
+            error: error.message,
             instructions: [
-                '1. Go to https://ghe.megaleo.com/settings/tokens',
-                '2. Generate new token with "repo" scope',
-                '3. Set GITHUB_TOKEN environment variable',
-                '4. Restart the server'
+                '1. Set GITHUB_TOKEN environment variable',
+                '2. Set GITHUB_OWNER environment variable',
+                '3. Set GITHUB_API_BASE environment variable',
+                '4. Set JIRA_BASE_URL environment variable',
+                '5. Restart the server'
             ]
         };
     }
-    
-    return {
-        valid: true,
-        message: 'GitHub configuration is valid',
-        owner: config.owner
-    };
 }
 
 export function getGitHubHeaders() {
     const config = getGitHubConfig();
-    
-    if (!config.isConfigured) {
-        throw new Error('GitHub token not configured');
-    }
     
     return {
         'Authorization': `token ${config.token}`,

@@ -14,7 +14,7 @@ export const create_pull_request = new DynamicStructuredTool({
   name: "create_pull_request",
   description: "Create a new pull request on GitHub with enhanced description including code diff analysis, change statistics, and review checklist. Requires GitHub token for authentication. Returns formatted response that should be displayed directly to the user without modification.",
   schema: z.object({
-    owner: z.string().optional().describe(`The owner of the repository (username or organization). Defaults to '${DEFAULT_OWNER}' if not specified.`),
+    owner: z.string().optional().describe(`The owner of the repository (username or organization). Defaults to '${DEFAULT_OWNER || 'your-org'}' if not specified.`),
     repo: z.string().describe("The name of the repository"),
     title: z.string().describe("The title of the pull request"),
     head: z.string().describe("The branch containing the changes you want to merge"),
@@ -24,6 +24,13 @@ export const create_pull_request = new DynamicStructuredTool({
     include_diff_analysis: z.boolean().optional().describe("Whether to include automatic code diff analysis in the PR description (default: true)")
   }),
   func: async ({ owner = DEFAULT_OWNER, repo, title, head, base, body = "", draft = false, include_diff_analysis = true }) => {
+    if (!owner) {
+      return {
+        success: false,
+        error: "Repository owner is required. Please set GITHUB_OWNER environment variable or provide owner parameter."
+      };
+    }
+    
     const tokenValidation = validateGitHubToken();
     if (!tokenValidation.success) return tokenValidation;
 
@@ -112,10 +119,17 @@ export const get_repository_info = new DynamicStructuredTool({
   name: "get_repository_info",
   description: "Get information about a GitHub repository including branches, default branch, and recent commits. Returns a pre-formatted response with emojis and structure that should be displayed exactly as-is to the user. Do not summarize or modify this response.",
   schema: z.object({
-    owner: z.string().optional().describe(`The owner of the repository (username or organization). Defaults to '${DEFAULT_OWNER}' if not specified.`),
+    owner: z.string().optional().describe(`The owner of the repository (username or organization). Defaults to '${DEFAULT_OWNER || 'your-org'}' if not specified.`),
     repo: z.string().describe("The name of the repository")
   }),
   func: async ({ owner = DEFAULT_OWNER, repo }) => {
+    if (!owner) {
+      return {
+        success: false,
+        error: "Repository owner is required. Please set GITHUB_OWNER environment variable or provide owner parameter."
+      };
+    }
+    
     const tokenValidation = validateGitHubToken();
     if (!tokenValidation.success) return tokenValidation;
 
@@ -187,7 +201,7 @@ export const generate_pr_summary = new DynamicStructuredTool({
   name: "generate_pr_summary",
   description: "Generate a detailed PR summary for a branch comparison without creating the actual PR. This tool analyzes code changes, generates enhanced descriptions, and provides comprehensive analysis including JIRA ticket context, file changes, and impact assessment. Returns formatted response that should be displayed directly to the user.",
   schema: z.object({
-    owner: z.string().optional().describe(`The owner of the repository (username or organization). Defaults to '${DEFAULT_OWNER}' if not specified.`),
+    owner: z.string().optional().describe(`The owner of the repository (username or organization). Defaults to '${DEFAULT_OWNER || 'your-org'}' if not specified.`),
     repo: z.string().describe("The name of the repository"),
     head: z.string().describe("The branch containing the changes you want to analyze"),
     base: z.string().describe("The branch you want to compare against (usually 'main' or 'master')"),
@@ -195,6 +209,13 @@ export const generate_pr_summary = new DynamicStructuredTool({
     body: z.string().optional().describe("Additional custom description for context in the analysis")
   }),
   func: async ({ owner = DEFAULT_OWNER, repo, head, base, title = "", body = "" }) => {
+    if (!owner) {
+      return {
+        success: false,
+        error: "Repository owner is required. Please set GITHUB_OWNER environment variable or provide owner parameter."
+      };
+    }
+    
     const tokenValidation = validateGitHubToken();
     if (!tokenValidation.success) return tokenValidation;
 

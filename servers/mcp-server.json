@@ -1,8 +1,8 @@
 {
-    "name": "workday-mcp/pr-copilot-mcp",
-    "description": "MCP server for GitHub PR creation and analysis with AI-generated summaries using Workday CIS LLM and JIRA ticket integration - create pull requests with enhanced descriptions, generate PR summaries, analyze code changes, and JIRA ticket context with Figma links. Optimized configuration with hardcoded values for simplified deployment.",
+    "name": "pr-copilot-mcp",
+    "description": "MCP server for GitHub PR creation and analysis with AI-generated summaries using AI LLM and JIRA ticket integration - create pull requests with enhanced descriptions, generate PR summaries, analyze code changes, and JIRA ticket context with Figma links. Optimized configuration with environment variables for flexible deployment.",
     "repository": {
-        "url": "https://ghe.megaleo.com/siddharth-sinha/github-pr-copilot"
+        "url": "https://github.com/your-org/pr-copilot"
     },
     "version_detail": {
         "version": "1.2.0"
@@ -10,7 +10,7 @@
     "packages": [
         {
             "registry_name": "npm",
-            "name": "@workday-mcp/pr-copilot-mcp",
+            "name": "@your-org/pr-copilot-mcp",
             "version": "1.2.0",
             "environment_variables": [
                 {
@@ -21,8 +21,8 @@
                 },
                 {
                     "name": "GITHUB_OWNER",
-                    "description": "Default repository owner (optional, defaults to 'wday-planning' if not set)",
-                    "is_required": false,
+                    "description": "Default repository owner (required)",
+                    "is_required": true,
                     "is_secret": false
                 },
                 {

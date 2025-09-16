@@ -17,7 +17,10 @@ export const get_jira_ticket_details = new DynamicStructuredTool({
   }),
   func: async ({ ticketId }) => {
     try {
-      const jiraBaseUrl = "https://jira2.workday.com";
+      const jiraBaseUrl = process.env.JIRA_BASE_URL;
+      if (!jiraBaseUrl) {
+        throw new Error('JIRA_BASE_URL environment variable is required');
+      }
 
       // JIRA REST API endpoint for ticket details
       const jiraApiUrl = `${jiraBaseUrl}/rest/api/2/issue/${ticketId}`;
@@ -85,7 +88,7 @@ export const get_jira_ticket_details = new DynamicStructuredTool({
           description: 'Unable to fetch ticket details from JIRA API',
           status: 'Unknown',
           figmaLinks: [],
-          url: `https://jira2.workday.com/browse/${ticketId}`
+          url: `${jiraBaseUrl}/browse/${ticketId}`
         }
       };
     }

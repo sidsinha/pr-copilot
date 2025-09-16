@@ -26,7 +26,7 @@ const TOOLS = {
     schema: {
       type: 'object',
       properties: {
-        owner: { type: 'string', description: 'Repository owner (optional, defaults to wday-planning)' },
+        owner: { type: 'string', description: 'Repository owner (required)' },
         repo: { type: 'string', description: 'Repository name (required)' },
         title: { type: 'string', description: 'PR title (required)' },
         head: { type: 'string', description: 'Source branch (required)' },
@@ -45,7 +45,7 @@ const TOOLS = {
     schema: {
       type: 'object',
       properties: {
-        owner: { type: 'string', description: 'Repository owner (optional, defaults to wday-planning)' },
+        owner: { type: 'string', description: 'Repository owner (required)' },
         repo: { type: 'string', description: 'Repository name (required)' },
       },
       required: ['repo'],
@@ -70,7 +70,7 @@ const TOOLS = {
     schema: {
       type: 'object',
       properties: {
-        owner: { type: 'string', description: 'Repository owner (optional, defaults to wday-planning)' },
+        owner: { type: 'string', description: 'Repository owner (required)' },
         repo: { type: 'string', description: 'Repository name (required)' },
         head: { type: 'string', description: 'Source branch (required)' },
         base: { type: 'string', description: 'Target branch (required)' },
@@ -93,7 +93,7 @@ const server = new Server(
 function detectCurrentRepo() {
   try {
     const remoteUrl = execSync('git config --get remote.origin.url', { encoding: 'utf8' }).trim();
-    const repoMatch = remoteUrl.match(/(?:github\.com|ghe\.megaleo\.com)[\/:]([^\/]+)\/([^\/]+?)(?:\.git)?$/);
+    const repoMatch = remoteUrl.match(/(?:github\.com|ghe\.[^\/]+\.com)[\/:]([^\/]+)\/([^\/]+?)(?:\.git)?$/);
     return repoMatch ? { owner: repoMatch[1], repo: repoMatch[2] } : null;
   } catch {
     return null;

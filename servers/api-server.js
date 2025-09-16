@@ -14,7 +14,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 //@ts-ignore This allows us to connect to CIS. Make sure you're on the network
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -28,7 +28,7 @@ app.use(express.json());
 // --- Configuration ---
 
 // Default repository
-const DEFAULT_REPO = "officeconnect-ui";
+const DEFAULT_REPO = process.env.DEFAULT_REPO;
 
 // --- GitHub Configuration ---
 const githubConfig = getGitHubConfig();
@@ -54,7 +54,7 @@ app.get('/health', (req, res) => {
     res.json({ 
         status: 'healthy', 
         timestamp: new Date().toISOString(),
-        username: process.env.CIS_USERNAME || 'system',
+        username: process.env.AI_USERNAME,
         github: {
             configured: githubConfig.isConfigured,
             validation: githubValidation
@@ -200,7 +200,7 @@ app.listen(PORT, () => {
     console.log(`   POST http://localhost:${PORT}/create-pr - Create GitHub PR`);
     console.log(`   POST http://localhost:${PORT}/test-github - Test GitHub connection`);
     console.log(`   GET  http://localhost:${PORT}/tools - Available tools`);
-    console.log(`👤 Username: ${process.env.CIS_USERNAME || 'system'}`);
+    console.log(`👤 Username: ${process.env.AI_USERNAME}`);
     
     // GitHub status
     if (githubConfig.isConfigured) {

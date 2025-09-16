@@ -7,8 +7,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // GitHub API configuration
-export const GITHUB_API_BASE = "https://ghe.megaleo.com/api/v3";
-export const DEFAULT_OWNER = process.env.GITHUB_OWNER || "wday-planning";
+export const GITHUB_API_BASE = process.env.GITHUB_API_BASE;
+export const DEFAULT_OWNER = process.env.GITHUB_OWNER;
 
 /**
  * Get GitHub headers for API requests
@@ -79,7 +79,9 @@ export const extractJiraTickets = (text) => {
  * Generate JIRA URL for a ticket
  */
 export const getJiraUrl = (ticket) => {
-  // Hardcoded JIRA base URL
-  const jiraBaseUrl = "https://jira2.workday.com";
+  const jiraBaseUrl = process.env.JIRA_BASE_URL;
+  if (!jiraBaseUrl) {
+    throw new Error('JIRA_BASE_URL environment variable is required');
+  }
   return `${jiraBaseUrl}/browse/${ticket}`;
 };

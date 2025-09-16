@@ -21,7 +21,7 @@ export const toolsMetadata = {
     description: "Create a new pull request on GitHub with enhanced description and analysis",
     category: "github",
     parameters: {
-      owner: "Repository owner (optional, defaults to 'wday-planning')",
+      owner: "Repository owner (required)",
       repo: "Repository name (required)",
       title: "PR title (required)",
       head: "Source branch (required)",
@@ -36,7 +36,7 @@ export const toolsMetadata = {
     description: "Get repository information including branches and details",
     category: "github",
     parameters: {
-      owner: "Repository owner (optional, defaults to 'wday-planning')",
+      owner: "Repository owner (required)",
       repo: "Repository name (required)"
     }
   }

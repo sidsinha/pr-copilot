@@ -1,6 +1,6 @@
 # PR CoPilot
 
-AI-powered PR creation with GitHub integration and CIS LLM support.
+AI-powered PR creation with GitHub integration and AI LLM support.
 
 ## Features
 
@@ -14,7 +14,7 @@ AI-powered PR creation with GitHub integration and CIS LLM support.
 
 - Node.js 20.0.0+
 - GitHub token with repo permissions
-- CIS LLM access
+- AI LLM access
 
 ## Setup
 
@@ -33,19 +33,45 @@ npm run api    # Run REST API server
 
 ## Configuration
 
-Create a `.env` file with the following variables:
+Create a `.env` file with the following variables (copy from `env.example`):
 
 ```env
-GITHUB_TOKEN=your_github_token
-GITHUB_OWNER=your-org
-JIRA_API_TOKEN=your_jira_api_token
+# GitHub Configuration
+GITHUB_TOKEN=your_github_token_here
+GITHUB_OWNER=your_github_owner_here
+GITHUB_API_BASE=https://api.github.com
+
+# JIRA Configuration
+JIRA_API_TOKEN=your_jira_api_token_here
+JIRA_BASE_URL=https://your-company.atlassian.net
+
+# AI Configuration
+AI_USERNAME=your_ai_username_here
+AI_BASE_URL=https://your-ai-service.com/api/v1/
+AI_API_KEY=your_ai_api_key_here
+AI_MODEL=your-ai-model-name
+
+# Server Configuration
+PORT=3000
+DEFAULT_REPO=your-default-repo
+
+# Security
+NODE_TLS_REJECT_UNAUTHORIZED=0
 ```
 
-**Required:**
+**Required Environment Variables:**
 - `GITHUB_TOKEN` - GitHub authentication token with repository permissions
+- `GITHUB_OWNER` - Default repository owner
+- `GITHUB_API_BASE` - GitHub API base URL
+- `JIRA_BASE_URL` - JIRA base URL
+- `AI_USERNAME` - AI service username for authentication
+- `AI_BASE_URL` - AI service API base URL
+- `AI_API_KEY` - AI service API key
+- `AI_MODEL` - AI model name
+- `PORT` - Server port
+- `DEFAULT_REPO` - Default repository name
 
 **Optional:**
-- `GITHUB_OWNER` - Default repository owner (defaults to "wday-planning")
 - `JIRA_API_TOKEN` - JIRA API token for ticket integration
 
 ## Documentation
