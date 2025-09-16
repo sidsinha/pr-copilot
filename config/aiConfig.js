@@ -1,4 +1,4 @@
-// Configuration imports
+// AI Configuration
 import { ChatOpenAI } from "@langchain/openai";
 import * as dotenv from 'dotenv';
 

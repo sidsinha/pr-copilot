@@ -2,7 +2,7 @@
  * LLM integration for GitHub tools
  */
 
-import { getLLMClient } from "../../config/cisConfig.js";
+import { getLLMClient } from "../../config/aiConfig.js";
 import { get_jira_ticket_details } from "../jira/ticketDetails.js";
 
 /**
